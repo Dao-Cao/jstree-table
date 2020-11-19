@@ -521,6 +521,8 @@
 				col = this.headerWrapper;
 				last = $("<div></div>").css(conf).addClass("jstree-table-div-"+this.uniq+"-"+i+" "+(tr?"ui-widget-header ":"")+" jstree-table-header jstree-table-header-cell jstree-table-header-"+classAdd+" "+cl+" "+ccl).html(val);
 				last.addClass((tr?"ui-widget-header ":"")+"jstree-table-header jstree-table-header-"+classAdd);
+				/*Column width not getting applied on jstree table plugin*/
+				last.width(width);
 				last.appendTo(col);
 
 				if (name) {
@@ -862,6 +864,14 @@
 					newWidth = width;
 				}
 			});
+		
+			/*Column width not getting applied on jstree table plugin*/
+			var index = col.parent().children().index(col);
+			var headerCol = $('.jstree-table-headerwrapper>div').eq(index);
+			var headerWidth =  headerCol.width();
+			if (headerWidth > newWidth) {
+				newWidth = headerWidth;
+			}
 
 			diff = newWidth-oldPrevColWidth;
 
